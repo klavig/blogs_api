@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if app.user and app.user.apiTokens|length %}
+        {% for api_token in app.user.apiTokens %}
+            <strong>API token:</strong> {{ api_token.token }}<br />
+            <a href="{{ path('api_doc') }}">API docs</a>
+        {% endfor %}
+    {% else %}
+        {{ (error.message)|default }}
+        {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <a href="{{ path('register') }}">Register</a>
+            <button type="submit">Login</button>
+        {{ form_end(form) }}
+    {% endif %}
+{% endblock %}
